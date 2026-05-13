@@ -746,17 +746,164 @@ section { position: relative; padding: 96px 0; }
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms cubic-bezier(.2,.8,.2,1), transform 700ms cubic-bezier(.2,.8,.2,1); }
 .reveal.in { opacity: 1; transform: none; }
 
-/* responsive */
+/* ============ responsive ============ */
+
+/* small desktop / large tablet */
+@media (max-width: 1100px) {
+  .wrap { padding: 0 24px; }
+  .shape.circle-green { width: 220px; height: 220px; right: 4%; }
+  .shape.red-blob { width: 150px; height: 150px; right: 24%; top: 48%; }
+  .shape.half-pink { right: 12%; bottom: 22%; }
+  .shape.asterisk { font-size: 110px; left: 38%; }
+  .hero .name .ln2 { padding-left: clamp(0px, 6vw, 100px); }
+  .hero-meta { gap: 14px; }
+  .exp .card { padding: 30px 32px; }
+  .proj-detail { padding: 30px 32px; }
+  .proj-layout { grid-template-columns: 280px 1fr; gap: 20px; }
+  .edu-card { padding: 30px 32px; }
+}
+
+/* tablet */
 @media (max-width: 900px) {
   .nav { display: none; }
-  .hero-meta { grid-template-columns: repeat(2, 1fr); }
-  .about .grid, .exp .card, .proj-layout, .edu .grid, .chat .panel, .footer .grid {
-    grid-template-columns: 1fr; gap: 24px;
-  }
-  .skills .groups { grid-template-columns: 1fr; }
+  .wrap { padding: 0 20px; }
   section { padding: 64px 0; }
-  .hero { padding-top: 100px; min-height: auto; }
-  .shape.asterisk { font-size: 80px; }
-  .shape.circle-green { width: 160px; height: 160px; }
-  .shape.red-blob { width: 110px; height: 110px; }
+  .h2 { font-size: clamp(34px, 7vw, 56px); margin-bottom: 32px; }
+
+  .hero { padding: 90px 0 60px; min-height: auto; }
+  .hero .name { font-size: clamp(56px, 13vw, 120px); }
+  .hero .name .ln2 { padding-left: clamp(0px, 5vw, 60px); }
+  .hero .role { margin-top: 22px; font-size: 12px; padding: 10px 16px; }
+  .hero-meta {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 40px;
+  }
+  .hero-meta .cell { padding: 14px 16px; border-radius: 16px; }
+  .hero-meta .cell .val { font-size: 16px; }
+
+  /* shapes: shrink and pull out of text */
+  .shape.circle-green { width: 130px; height: 130px; top: 4%; right: 4%; }
+  .shape.red-blob { width: 90px; height: 90px; top: 28%; right: 8%; }
+  .shape.half-pink { width: 120px; height: 60px; bottom: 18%; right: 6%; }
+  .shape.asterisk { font-size: 64px; top: 2%; left: 52%; }
+  .shape.dots-grid { width: 110px; height: 70px; bottom: 4%; left: 4%; opacity: 0.5; }
+  .shape.arrow-down { display: none; }
+
+  .about { padding-top: 30px; padding-bottom: 60px; }
+  .about .grid { grid-template-columns: 1fr; gap: 28px; }
+  .about p.lead { font-size: clamp(22px, 3.4vw, 28px); }
+  .about .stat { padding: 20px 22px; border-radius: 18px; }
+  .about .stat .num { font-size: 44px; }
+
+  .skills .groups { grid-template-columns: 1fr; gap: 10px; }
+  .skill-group { padding: 18px 20px; border-radius: 18px; }
+  .skill-group .title { font-size: 20px; }
+
+  .exp .card {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 26px 24px;
+    border-radius: 22px;
+  }
+  .exp .position { font-size: 28px; }
+  .exp .floating-arc { width: 140px; height: 140px; border-width: 22px; bottom: -60px; right: -40px; }
+  .exp .ach { grid-template-columns: 54px 1fr; gap: 14px; }
+  .exp .ach .badge { font-size: 15px; padding: 8px 0; border-radius: 10px; }
+  .exp .ach .txt { font-size: 15px; }
+
+  .proj-layout { grid-template-columns: 1fr; gap: 14px; }
+  .proj-tabs { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .proj-tab { flex: 1 1 calc(50% - 4px); padding: 14px 16px; border-radius: 14px; }
+  .proj-tab .name { font-size: 14px; }
+  .proj-detail {
+    padding: 26px 24px;
+    border-radius: 22px;
+    min-height: 0;
+  }
+  .proj-detail .title { font-size: 26px; }
+  .proj-detail .bullets { gap: 12px; }
+  .proj-detail .bullet { font-size: 15px; }
+
+  .edu .grid { grid-template-columns: 1fr; gap: 14px; }
+  .edu-card { padding: 26px 24px; border-radius: 22px; }
+  .edu-card .name { font-size: 22px; }
+  .edu-card.uni .ring { width: 140px; height: 140px; border-width: 20px; right: -50px; bottom: -50px; }
+  .ach-item { padding: 16px 18px; grid-template-columns: 36px 1fr; gap: 14px; border-radius: 14px; }
+  .ach-item .num { font-size: 22px; }
+
+  .footer { padding: 60px 0 40px; }
+  .footer .grid { grid-template-columns: 1fr; gap: 32px; align-items: start; }
+  .footer .sign { font-size: clamp(56px, 16vw, 100px); }
+  .footer .bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 40px;
+  }
+}
+
+/* phone */
+@media (max-width: 520px) {
+  .wrap { padding: 0 16px; }
+  .eyebrow { font-size: 11px; }
+  .h2 { font-size: clamp(30px, 8.5vw, 44px); margin-bottom: 24px; line-height: 1; }
+
+  .hero { padding: 80px 0 36px; }
+  .hero .name { font-size: clamp(44px, 14vw, 76px); }
+  .hero .name .ln2 { padding-left: 14px; }
+  .hero .name .outline { -webkit-text-stroke: 1.5px var(--ink); }
+  .hero .role {
+    margin-top: 18px;
+    font-size: 11px;
+    padding: 8px 14px;
+    gap: 8px;
+  }
+  .hero-meta {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 28px;
+  }
+  .hero-meta .cell .val { font-size: 15px; }
+
+  .shape.circle-green { width: 90px; height: 90px; }
+  .shape.red-blob { width: 64px; height: 64px; right: 14%; top: 32%; }
+  .shape.half-pink { width: 90px; height: 45px; bottom: 30%; right: 4%; }
+  .shape.asterisk { font-size: 44px; top: 1%; left: 56%; }
+  .shape.dots-grid { display: none; }
+
+  .about p.lead { font-size: 20px; line-height: 1.25; }
+  .about .stat { padding: 16px 18px; border-radius: 14px; }
+  .about .stat .num { font-size: 36px; }
+  .about .stat .lbl { font-size: 13px; }
+
+  .skill-group .title { font-size: 18px; }
+  .skill-group .chips { gap: 6px; margin-top: 12px; }
+  .chip { padding: 5px 10px; font-size: 12px; }
+
+  .exp .card { padding: 20px 18px; gap: 22px; border-radius: 20px; }
+  .exp .position { font-size: 24px; }
+  .exp .ach { grid-template-columns: 48px 1fr; gap: 12px; }
+  .exp .ach .badge { font-size: 14px; }
+  .exp .ach .txt { font-size: 14px; }
+  .exp .floating-arc { width: 100px; height: 100px; border-width: 18px; bottom: -50px; right: -30px; }
+
+  .proj-tab { flex: 1 1 100%; padding: 12px 14px; }
+  .proj-tab .name { font-size: 14px; }
+  .proj-detail { padding: 22px 18px; border-radius: 20px; }
+  .proj-detail .title { font-size: 22px; }
+  .proj-detail .bullet { font-size: 14px; grid-template-columns: 18px 1fr; }
+  .proj-detail .result { font-size: 12px; padding: 10px 14px; }
+  .proj-detail .corner-pink { width: 120px; height: 120px; bottom: -50px; right: -40px; }
+
+  .edu-card { padding: 22px 20px; border-radius: 20px; }
+  .edu-card .name { font-size: 20px; }
+  .edu-card .meta { font-size: 14px; }
+  .ach-item { padding: 14px 16px; grid-template-columns: 32px 1fr; gap: 12px; }
+  .ach-item .num { font-size: 20px; }
+  .ach-item .txt { font-size: 14px; }
+
+  .footer { padding: 50px 0 32px; }
+  .footer .sign { font-size: clamp(48px, 18vw, 84px); }
+  .footer .col a { font-size: 15px; }
 }
