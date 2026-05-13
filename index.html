@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Станислав Тупицин — Python / NLP / AI-агенты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- scroll progress -->
+<div class="progress" id="progress"></div>
+
+<!-- top nav -->
+<nav class="nav" aria-label="Навигация">
+  <a href="#about">о себе</a>
+  <a href="#skills">стек</a>
+  <a href="#exp">опыт</a>
+  <a href="#projects">проекты</a>
+  <a href="#edu">учёба</a>
+  <a class="dot" href="#contact">связаться →</a>
+</nav>
+
+<!-- =================== HERO =================== -->
+<header class="hero" data-screen-label="01 Hero">
+  <div class="shape circle-green magnet" data-mag="0.06"></div>
+  <div class="shape asterisk">✱</div>
+  <div class="shape red-blob magnet" data-mag="-0.04"></div>
+  <div class="shape half-pink"></div>
+  <div class="shape dots-grid"></div>
+
+  <svg class="shape arrow-down" viewBox="0 0 80 100" fill="none" aria-hidden="true">
+    <path d="M40 5 V90 M15 65 L40 92 L65 65" stroke="#0E0E0E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+
+  <div class="wrap">
+    <div class="eyebrow">резюме · 2026 · вакансия Python-разработчик</div>
+    <h1 class="name">
+      <span class="ln1">Стани<span class="accent-red">с</span>лав</span>
+      <span class="ln2"><span class="outline">Тупи</span>цин</span>
+    </h1>
+
+    <div class="role">
+      <span class="pulse"></span>
+      Python · NLP · LLM-агенты · открыт к офферу
+    </div>
+
+    <div class="hero-meta">
+      <div class="cell">
+        <div class="lbl">город</div>
+        <div class="val">Екатеринбург</div>
+      </div>
+      <div class="cell">
+        <div class="lbl">телефон</div>
+        <div class="val">+7 904 975 60 17</div>
+      </div>
+      <div class="cell">
+        <div class="lbl">telegram</div>
+        <div class="val">@isoptional</div>
+      </div>
+      <div class="cell">
+        <div class="lbl">github</div>
+        <div class="val">be1pheg0r</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- =================== ABOUT =================== -->
+<section class="about" id="about" data-screen-label="02 About">
+  <div class="wrap">
+    <div class="grid">
+      <div class="reveal">
+        <div class="eyebrow">короткое интро</div>
+        <p class="lead">
+          Разрабатываю <b>LLM-агентов</b> и <span class="mark-green">NLP-сервисы</span> на Python.
+          Шесть месяцев в&nbsp;<span class="mark-pink">Сбере</span> — поднимал
+          GigaChat-пайплайн в&nbsp;прод, переписывал легаси-роутинг
+          и&nbsp;строил иерархический NER для&nbsp;юр. документов.
+          Стек: <span class="mark-red">LangGraph, RAG, FastAPI, PyTorch.</span>
+        </p>
+      </div>
+
+      <div class="card-stack">
+        <div class="stat reveal">
+          <div class="num">−22%</div>
+          <div class="lbl">время анализа документа специалистом — после интеграции GigaChat-пайплайна</div>
+        </div>
+        <div class="stat reveal">
+          <div class="num">×20</div>
+          <div class="lbl">ускорение роутинга после замены LLM-классификатора на BM25-роутер</div>
+        </div>
+        <div class="stat reveal">
+          <div class="num">F1 ≈ 0.95</div>
+          <div class="lbl">метрика нового роутера (BM25 + Optuna), ошибка снижена на 40%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== SKILLS =================== -->
+<section class="skills" id="skills" data-screen-label="03 Skills">
+  <div class="wrap">
+    <div class="eyebrow">стек</div>
+    <h2 class="h2">всё, на&nbsp;чём <em>работает голова</em>.</h2>
+
+    <div class="groups">
+      <div class="skill-group reveal" data-color="green">
+        <div class="head">
+          <div class="title">LLM &amp; агенты</div>
+          <div class="count">08</div>
+        </div>
+        <div class="chips">
+          <span class="chip">LangGraph</span>
+          <span class="chip">LangChain</span>
+          <span class="chip">function calling</span>
+          <span class="chip">tool use</span>
+          <span class="chip">prompt engineering</span>
+          <span class="chip">RAG</span>
+          <span class="chip">мультиагентные пайплайны</span>
+          <span class="chip">GigaChat / OpenRouter</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal" data-color="pink">
+        <div class="head">
+          <div class="title">NLP</div>
+          <div class="count">06</div>
+        </div>
+        <div class="chips">
+          <span class="chip">sentence-transformers</span>
+          <span class="chip">HF Transformers</span>
+          <span class="chip">spaCy</span>
+          <span class="chip">BPE / WordPiece / SentencePiece</span>
+          <span class="chip">PyMorphy</span>
+          <span class="chip">Kimi K2 · Mistral</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal" data-color="red">
+        <div class="head">
+          <div class="title">Поиск / RAG</div>
+          <div class="count">05</div>
+        </div>
+        <div class="chips">
+          <span class="chip">Milvus</span>
+          <span class="chip">ChromaDB</span>
+          <span class="chip">BM25</span>
+          <span class="chip">FlashRAG</span>
+          <span class="chip">гибридный поиск · реранкинг</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal" data-color="ink">
+        <div class="head">
+          <div class="title">Classic ML</div>
+          <div class="count">07</div>
+        </div>
+        <div class="chips">
+          <span class="chip">PyTorch</span>
+          <span class="chip">Scikit-Learn</span>
+          <span class="chip">LightGBM</span>
+          <span class="chip">CatBoost</span>
+          <span class="chip">XGBoost</span>
+          <span class="chip">Optuna</span>
+          <span class="chip">стекинг · ONNX</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal" data-color="green">
+        <div class="head">
+          <div class="title">Backend &amp; БД</div>
+          <div class="count">07</div>
+        </div>
+        <div class="chips">
+          <span class="chip">FastAPI</span>
+          <span class="chip">Pydantic</span>
+          <span class="chip">aiogram</span>
+          <span class="chip">Docker</span>
+          <span class="chip">async I/O</span>
+          <span class="chip">PostgreSQL · SQL</span>
+          <span class="chip">Milvus · ChromaDB</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal" data-color="pink">
+        <div class="head">
+          <div class="title">База &amp; языки</div>
+          <div class="count">06</div>
+        </div>
+        <div class="chips">
+          <span class="chip">Python 3</span>
+          <span class="chip">Git · Linux</span>
+          <span class="chip">теорвер · матстат</span>
+          <span class="chip">линал · оптимизация</span>
+          <span class="chip">RU native</span>
+          <span class="chip">EN B2 · FR base</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== EXPERIENCE =================== -->
+<section class="exp" id="exp" data-screen-label="04 Experience">
+  <div class="wrap">
+    <div class="eyebrow">опыт работы</div>
+    <h2 class="h2">шесть месяцев <em>внутри банка</em>.</h2>
+
+    <div class="card reveal">
+      <div class="left">
+        <span class="logo-pill">Сбербанк</span>
+        <div class="position">Python-разработчик</div>
+        <div class="period">ноябрь 2025 — апрель 2026 · 6 мес.</div>
+        <div style="font-size:14px; color: var(--muted); max-width: 280px;">
+          Внутренние ML-сервисы, LLM-пайплайны и&nbsp;NER для&nbsp;юридических документов.
+        </div>
+      </div>
+
+      <div class="achievements">
+        <div class="ach">
+          <div class="badge">−22%</div>
+          <div class="txt">
+            Интегрировал <b>LLM-пайплайн на&nbsp;базе GigaChat</b> в&nbsp;продуктовую систему автоматизации работы с&nbsp;внутренней документацией; время анализа документа специалистом сократилось на&nbsp;22%.
+          </div>
+        </div>
+        <div class="ach">
+          <div class="badge">×20</div>
+          <div class="txt">
+            Разрабатывал ML-сервисы на&nbsp;<b>Python (FastAPI + Pydantic)</b>; рефакторинг легаси-роутинга — замена LLM-классификатора на&nbsp;оптимизированный <b>BM25-роутер (BM25 + Optuna, F1 ≈ 0.95)</b> снизил ошибку на&nbsp;40% и&nbsp;ускорил роутинг в&nbsp;20 раз.
+          </div>
+        </div>
+        <div class="ach">
+          <div class="badge">3↑</div>
+          <div class="txt">
+            Иерархический <b>NER-пайплайн</b> для&nbsp;русскоязычных юр. документов: spaCy + множество маленьких ONNX-классификаторов поверх токенов PyMorphy. Три уровня сущностей, питает систему обработки документов выше.
+          </div>
+        </div>
+      </div>
+      <div class="floating-arc"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== PROJECTS =================== -->
+<section class="projects" id="projects" data-screen-label="05 Projects">
+  <div class="wrap">
+    <div class="eyebrow">проекты</div>
+    <h2 class="h2">четыре истории <em>про&nbsp;графы агентов</em>.</h2>
+
+    <div class="proj-layout">
+      <div class="proj-tabs" id="projTabs">
+        <button class="proj-tab active" data-idx="0">
+          <span class="idx">01</span>
+          <span class="name">Детектор галлюцинаций GigaChat</span>
+        </button>
+        <button class="proj-tab" data-idx="1">
+          <span class="idx">02</span>
+          <span class="name">Мультиагентная классификация Avito</span>
+        </button>
+        <button class="proj-tab" data-idx="2">
+          <span class="idx">03</span>
+          <span class="name">Графовая генерация BPMN-диаграмм</span>
+        </button>
+        <button class="proj-tab" data-idx="3">
+          <span class="idx">04</span>
+          <span class="name">Сегментация интервью · Газпром</span>
+        </button>
+      </div>
+
+      <div class="proj-detail" id="projDetail">
+        <!-- content rendered by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== EDU + ACH =================== -->
+<section class="edu" id="edu" data-screen-label="06 Education">
+  <div class="wrap">
+    <div class="eyebrow">образование и&nbsp;достижения</div>
+    <h2 class="h2">учусь на&nbsp;<em>AI-алгоритмиста</em>.</h2>
+
+    <div class="grid">
+      <div class="edu-card uni reveal">
+        <div class="lbl">2023 — 2027 · очная форма</div>
+        <div class="name">Уральский федеральный<br/>университет (УрФУ)</div>
+        <div class="meta">
+          ИРИТ-РТФ&nbsp;·&nbsp;Алгоритмы искусственного интеллекта&nbsp;(09.03.01)
+        </div>
+        <div class="ring"></div>
+      </div>
+
+      <div class="achievements">
+        <div class="ach-item reveal">
+          <div class="num">01</div>
+          <div class="txt">
+            Автор исследования <b>«Методология и&nbsp;валидация разметки снимков ОКТ с&nbsp;использованием U-Net3+»</b> — eLIBRARY, 2024.
+          </div>
+        </div>
+        <div class="ach-item reveal">
+          <div class="num">02</div>
+          <div class="txt">
+            <b>Топ-3</b> на&nbsp;лидерборде хакатона Газпрома, F1&nbsp;=&nbsp;0.81 на&nbsp;публичном датасете.
+          </div>
+        </div>
+        <div class="ach-item reveal">
+          <div class="num">03</div>
+          <div class="txt">
+            Опенсорс-проект графовой генерации BPMN-диаграмм с&nbsp;валидацией структурированного вывода.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER / CTA =================== -->
+<footer class="footer" id="contact" data-screen-label="08 Contact">
+  <div class="wrap">
+    <div class="grid">
+      <h2 class="sign">
+        напи<span class="green">ши</span>те<br/>мне<span class="pink">.</span>
+      </h2>
+      <div class="col">
+        <div class="lbl">прямой контакт</div>
+        <a href="tel:+79049756017">+7 904 975 60 17</a>
+        <a href="https://t.me/isoptional" target="_blank" rel="noopener">@isoptional</a>
+      </div>
+      <div class="col">
+        <div class="lbl">код и&nbsp;статьи</div>
+        <a href="https://github.com/be1pheg0r" target="_blank" rel="noopener">github.com/be1pheg0r</a>
+        <a href="#exp">резюме (PDF — by request)</a>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div>© 2026 · Станислав Тупицин</div>
+      <div>Python · NLP · LLM · агенты</div>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
