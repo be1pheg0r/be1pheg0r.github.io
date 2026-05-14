@@ -4,9 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Станислав Тупицин — Python / NLP / AI-агенты</title>
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -16,11 +19,21 @@
 
 <!-- top nav -->
 <nav class="nav" aria-label="Навигация">
+  <button class="nav-theme" id="themeToggle" type="button" aria-label="Переключить тему">
+    <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+    </svg>
+    <svg class="i-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
   <a href="#about">о себе</a>
   <a href="#skills">стек</a>
   <a href="#exp">опыт</a>
   <a href="#projects">проекты</a>
   <a href="#edu">учёба</a>
+  <a href="https://docs.google.com/document/d/1Hkcu4VGTxPP-pWNmAM_5wQBuD5kC50n-/edit?usp=sharing&ouid=101720441758992709932&rtpof=true&sd=true" target="_blank" rel="noopener" data-pdf-link>PDF ↗</a>
   <a class="dot" href="#contact">связаться →</a>
 </nav>
 
@@ -32,39 +45,61 @@
   <div class="shape half-pink"></div>
   <div class="shape dots-grid"></div>
 
-  <svg class="shape arrow-down" viewBox="0 0 80 100" fill="none" aria-hidden="true">
-    <path d="M40 5 V90 M15 65 L40 92 L65 65" stroke="#0E0E0E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-  </svg>
+  <!-- shapes only visible at energy=high -->
+  <div class="shape extra ring-thin"></div>
+  <div class="shape extra zigzag">
+    <svg viewBox="0 0 120 30" fill="none" aria-hidden="true">
+      <path d="M2 24 L20 6 L38 24 L56 6 L74 24 L92 6 L110 24" stroke="#0E0E0E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="shape extra plus">+</div>
+  <div class="shape extra triangle-pink"></div>
 
   <div class="wrap">
-    <div class="eyebrow">резюме · 2026 · вакансия Python-разработчик</div>
+    <div class="mode-switcher" id="modeSwitcher" role="tablist" aria-label="Версия резюме">
+      <button class="ms-btn active" type="button" role="tab" data-mode="py" aria-selected="true">
+        <span class="ms-name">Python-разработчик</span>
+        <span class="ms-sub">ИИ-агенты · NLP</span>
+      </button>
+      <button class="ms-btn" type="button" role="tab" data-mode="cv" aria-selected="false">
+        <span class="ms-name">CV-разработчик</span>
+        <span class="ms-sub">Computer Vision</span>
+      </button>
+    </div>
+
+    <div class="eyebrow mode-block mode-block-py">резюме · 2026 · вакансия Python-разработчик</div>
+    <div class="eyebrow mode-block mode-block-cv">резюме · 2026 · вакансия Computer Vision Engineer</div>
     <h1 class="name">
       <span class="ln1">Стани<span class="accent-red">с</span>лав</span>
       <span class="ln2"><span class="outline">Тупи</span>цин</span>
     </h1>
 
-    <div class="role">
+    <div class="role mode-block mode-block-py">
       <span class="pulse"></span>
       Python · NLP · LLM-агенты · открыт к офферу
     </div>
+    <div class="role mode-block mode-block-cv">
+      <span class="pulse"></span>
+      Python · Computer Vision · ReID · DL · открыт к офферу
+    </div>
 
     <div class="hero-meta">
-      <div class="cell">
+      <a class="cell" href="#contact">
         <div class="lbl">город</div>
         <div class="val">Екатеринбург</div>
-      </div>
-      <div class="cell">
+      </a>
+      <a class="cell" href="tel:+79049756017">
         <div class="lbl">телефон</div>
         <div class="val">+7 904 975 60 17</div>
-      </div>
-      <div class="cell">
+      </a>
+      <a class="cell" href="https://t.me/isoptional" target="_blank" rel="noopener">
         <div class="lbl">telegram</div>
         <div class="val">@isoptional</div>
-      </div>
-      <div class="cell">
+      </a>
+      <a class="cell" href="https://github.com/be1pheg0r" target="_blank" rel="noopener">
         <div class="lbl">github</div>
         <div class="val">be1pheg0r</div>
-      </div>
+      </a>
     </div>
   </div>
 </header>
@@ -72,15 +107,15 @@
 <!-- =================== ABOUT =================== -->
 <section class="about" id="about" data-screen-label="02 About">
   <div class="wrap">
-    <div class="grid">
+    <div class="grid mode-block mode-block-py">
       <div class="reveal">
-        <div class="eyebrow">короткое интро</div>
+        <div class="eyebrow">кратко о себе</div>
         <p class="lead">
           Разрабатываю <b>LLM-агентов</b> и <span class="mark-green">NLP-сервисы</span> на Python.
-          Шесть месяцев в&nbsp;<span class="mark-pink">Сбере</span> — поднимал
-          GigaChat-пайплайн в&nbsp;прод, переписывал легаси-роутинг
-          и&nbsp;строил иерархический NER для&nbsp;юр. документов.
-          Стек: <span class="mark-red">LangGraph, RAG, FastAPI, PyTorch.</span>
+          Имею опыт работы в&nbsp;<span class="mark-pink">Сбербанке</span>: выводил
+          GigaChat-пайплайн в&nbsp;продуктив, рефакторил легаси-роутинг
+          и&nbsp;разрабатывал иерархический NER для&nbsp;юридических документов.
+          Основной стек: <span class="mark-red">LangGraph, RAG, FastAPI, PyTorch.</span>
         </p>
       </div>
 
@@ -99,6 +134,33 @@
         </div>
       </div>
     </div>
+
+    <div class="grid mode-block mode-block-cv">
+      <div class="reveal">
+        <div class="eyebrow">кратко о себе</div>
+        <p class="lead">
+          Разрабатываю <b>computer-vision системы</b>: <span class="mark-green">детекция, сегментация, ReID</span>.
+          Стажировался в&nbsp;<span class="mark-pink">WaveAccess</span>: вырастил mAP50 YOLO с&nbsp;0.61 до&nbsp;0.79
+          на&nbsp;видеопотоке медицинских эндоскопов. Делаю кит-ReID на&nbsp;66 классов (Rank-1 = 0.737).
+          Основной стек: <span class="mark-red">PyTorch, YOLO, Ultralytics, Swin-B, ArcFace, U-Net3+.</span>
+        </p>
+      </div>
+
+      <div class="card-stack">
+        <div class="stat reveal">
+          <div class="num">+18 pp</div>
+          <div class="lbl">mAP50 YOLO 0.61 → 0.79 после файнтюна на медицинских эндоскопах (WaveAccess)</div>
+        </div>
+        <div class="stat reveal">
+          <div class="num">0.737</div>
+          <div class="lbl">Rank-1 на кит-ReID, 66 классов, zero-shot baseline 0.56</div>
+        </div>
+        <div class="stat reveal">
+          <div class="num">Dice 0.83</div>
+          <div class="lbl">сегментация патологий ОКТ (U-Net3+), публикация на eLIBRARY</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -106,9 +168,9 @@
 <section class="skills" id="skills" data-screen-label="03 Skills">
   <div class="wrap">
     <div class="eyebrow">стек</div>
-    <h2 class="h2">всё, на&nbsp;чём <em>работает голова</em>.</h2>
+    <h2 class="h2">стек технологий <em>и инструменты</em>.</h2>
 
-    <div class="groups">
+    <div class="groups mode-block mode-block-py">
       <div class="skill-group reveal" data-color="green">
         <div class="head">
           <div class="title">LLM &amp; агенты</div>
@@ -171,10 +233,10 @@
         </div>
       </div>
 
-      <div class="skill-group reveal" data-color="green">
+      <div class="skill-group reveal wide" data-color="green">
         <div class="head">
           <div class="title">Backend &amp; БД</div>
-          <div class="count">07</div>
+          <div class="count">08</div>
         </div>
         <div class="chips">
           <span class="chip">FastAPI</span>
@@ -184,22 +246,150 @@
           <span class="chip">async I/O</span>
           <span class="chip">PostgreSQL · SQL</span>
           <span class="chip">Milvus · ChromaDB</span>
+          <span class="chip">Git · Linux</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="groups mode-block mode-block-cv">
+      <div class="skill-group reveal" data-color="green">
+        <div class="head">
+          <div class="title">Computer Vision</div>
+          <div class="count">07</div>
+        </div>
+        <div class="chips">
+          <span class="chip">YOLO v8 / v11</span>
+          <span class="chip">Ultralytics</span>
+          <span class="chip">детекция</span>
+          <span class="chip">сегментация</span>
+          <span class="chip">классификация</span>
+          <span class="chip">ReID</span>
+          <span class="chip">файнтюн на доменных данных</span>
         </div>
       </div>
 
       <div class="skill-group reveal" data-color="pink">
         <div class="head">
-          <div class="title">База &amp; языки</div>
-          <div class="count">06</div>
+          <div class="title">Метрик-лёрнинг</div>
+          <div class="count">05</div>
         </div>
         <div class="chips">
-          <span class="chip">Python 3</span>
-          <span class="chip">Git · Linux</span>
-          <span class="chip">теорвер · матстат</span>
-          <span class="chip">линал · оптимизация</span>
-          <span class="chip">RU native</span>
-          <span class="chip">EN B2 · FR base</span>
+          <span class="chip">ArcFace</span>
+          <span class="chip">Triplet Loss</span>
+          <span class="chip">MegaDescriptor</span>
+          <span class="chip">Swin-B</span>
+          <span class="chip">сиамские архитектуры</span>
         </div>
+      </div>
+
+      <div class="skill-group reveal" data-color="red">
+        <div class="head">
+          <div class="title">DL / бэкбоны</div>
+          <div class="count">07</div>
+        </div>
+        <div class="chips">
+          <span class="chip">PyTorch</span>
+          <span class="chip">U-Net3+</span>
+          <span class="chip">timm</span>
+          <span class="chip">ResNet · ConvNeXt · MobileNet</span>
+          <span class="chip">albumentations</span>
+          <span class="chip">OpenCV</span>
+          <span class="chip">ONNX</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal" data-color="ink">
+        <div class="head">
+          <div class="title">Обучение</div>
+          <div class="count">04</div>
+        </div>
+        <div class="chips">
+          <span class="chip">DDP / multi-GPU</span>
+          <span class="chip">Kaggle dual-T4</span>
+          <span class="chip">кастомные метрики</span>
+          <span class="chip">разбор data leakage</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal wide" data-color="green">
+        <div class="head">
+          <div class="title">Classic ML · Backend</div>
+          <div class="count">09</div>
+        </div>
+        <div class="chips">
+          <span class="chip">Scikit-Learn</span>
+          <span class="chip">LightGBM · CatBoost · XGBoost</span>
+          <span class="chip">Optuna · стекинг</span>
+          <span class="chip">FastAPI</span>
+          <span class="chip">Pydantic</span>
+          <span class="chip">aiogram</span>
+          <span class="chip">Docker</span>
+          <span class="chip">async I/O</span>
+          <span class="chip">Git · Linux · HF Hub</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- mini-widget row: ЯП, Математика, Языки -->
+    <div class="mini-row">
+      <div class="mini-card pl reveal">
+        <div class="head">
+          <div class="title">ЯП</div>
+          <div class="count">02</div>
+        </div>
+        <div class="pl-list">
+          <div class="pl-name">Python <span class="pl-three">3</span></div>
+          <div class="pl-name pl-secondary">Go <span class="pl-three">базовый</span></div>
+        </div>
+      </div>
+
+      <div class="mini-card math reveal">
+        <div class="head">
+          <div class="title">Математика</div>
+          <div class="count">04</div>
+        </div>
+        <ul class="math-list">
+          <li>теория вероятностей</li>
+          <li>математическая статистика</li>
+          <li>линейная алгебра</li>
+          <li>методы оптимизации</li>
+        </ul>
+      </div>
+
+      <div class="mini-card langs reveal">
+        <div class="head">
+          <div class="title">Языки</div>
+          <div class="count">03</div>
+        </div>
+        <ul class="lang-list">
+          <li>
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 9 6"><rect width="9" height="2" y="0" fill="#fff"/><rect width="9" height="2" y="2" fill="#0039A6"/><rect width="9" height="2" y="4" fill="#D52B1E"/></svg>
+            </span>
+            <span class="lang-name">русский</span>
+            <span class="lang-lvl">родной</span>
+          </li>
+          <li>
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 60 30">
+                <rect width="60" height="30" fill="#012169"/>
+                <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+                <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4" clip-path="polygon(0 0, 50% 0, 50% 100%, 0 100%)"/>
+                <path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/>
+                <path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/>
+              </svg>
+            </span>
+            <span class="lang-name">english</span>
+            <span class="lang-lvl">B2 / upper-int.</span>
+          </li>
+          <li>
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 9 6"><rect width="3" height="6" x="0" fill="#0055A4"/><rect width="3" height="6" x="3" fill="#fff"/><rect width="3" height="6" x="6" fill="#EF4135"/></svg>
+            </span>
+            <span class="lang-name">français</span>
+            <span class="lang-lvl">базовый</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -209,9 +399,9 @@
 <section class="exp" id="exp" data-screen-label="04 Experience">
   <div class="wrap">
     <div class="eyebrow">опыт работы</div>
-    <h2 class="h2">шесть месяцев <em>внутри банка</em>.</h2>
+    <h2 class="h2">профессиональный <em>опыт</em>.</h2>
 
-    <div class="card reveal">
+    <div class="card reveal mode-block mode-block-py">
       <div class="left">
         <span class="logo-pill">Сбербанк</span>
         <div class="position">Python-разработчик</div>
@@ -225,23 +415,84 @@
         <div class="ach">
           <div class="badge">−22%</div>
           <div class="txt">
-            Интегрировал <b>LLM-пайплайн на&nbsp;базе GigaChat</b> в&nbsp;продуктовую систему автоматизации работы с&nbsp;внутренней документацией; время анализа документа специалистом сократилось на&nbsp;22%.
+            Интегрировал <b>LLM-пайплайн на&nbsp;базе GigaChat</b> в&nbsp;продуктивную систему автоматизации работы с&nbsp;внутренней документацией; время анализа документа специалистом сократилось на&nbsp;22%.
           </div>
         </div>
         <div class="ach">
           <div class="badge">×20</div>
           <div class="txt">
-            Разрабатывал ML-сервисы на&nbsp;<b>Python (FastAPI + Pydantic)</b>; рефакторинг легаси-роутинга — замена LLM-классификатора на&nbsp;оптимизированный <b>BM25-роутер (BM25 + Optuna, F1 ≈ 0.95)</b> снизил ошибку на&nbsp;40% и&nbsp;ускорил роутинг в&nbsp;20 раз.
+        Разрабатывал ML-сервисы на&nbsp;<b>Python (FastAPI + Pydantic)</b>; рефакторил легаси-роутинг — заменил LLM-классификатор на&nbsp;оптимизированный <b>BM25-роутер (BM25 + Optuna, F1 ≈ 0.95)</b>, что снизило ошибку на&nbsp;40% и&nbsp;ускорило роутинг в&nbsp;20 раз.
           </div>
         </div>
         <div class="ach">
           <div class="badge">3↑</div>
           <div class="txt">
-            Иерархический <b>NER-пайплайн</b> для&nbsp;русскоязычных юр. документов: spaCy + множество маленьких ONNX-классификаторов поверх токенов PyMorphy. Три уровня сущностей, питает систему обработки документов выше.
+            Разработал иерархический <b>NER-пайплайн</b> для&nbsp;русскоязычных юридических документов: spaCy + набор ONNX-классификаторов поверх токенов PyMorphy. Три уровня сущностей; используется системой обработки документов выше.
           </div>
         </div>
       </div>
       <div class="floating-arc"></div>
+    </div>
+
+    <div class="mode-block mode-block-cv" style="display:flex; flex-direction:column; gap:18px;">
+      <div class="card reveal">
+        <div class="left">
+          <span class="logo-pill">WaveAccess</span>
+          <div class="position">CV Engineer (стажировка)</div>
+          <div class="period">июнь 2024 — август 2024 · 3 мес.</div>
+          <div style="font-size:14px; color: var(--muted); max-width: 280px;">
+            CV-сервис для&nbsp;анализа видеопотока медицинских эндоскопов.
+          </div>
+        </div>
+
+        <div class="achievements">
+          <div class="ach">
+            <div class="badge">+18 pp</div>
+            <div class="txt">
+              Файнтюн <b>YOLO</b> на&nbsp;доменных данных медицинских эндоскопов; mAP50 вырос с&nbsp;<b>0.61&nbsp;→&nbsp;0.79</b>.
+            </div>
+          </div>
+          <div class="ach">
+            <div class="badge">FP↓</div>
+            <div class="txt">
+              Дебажил пайплайн детекции: устранил false positive на&nbsp;<b>бликах и&nbsp;тенях</b> через тюнинг порогов; реализовал кастомные <b>метрики стабильности</b> модели на&nbsp;потоке.
+            </div>
+          </div>
+        </div>
+        <div class="floating-arc"></div>
+      </div>
+
+      <div class="card reveal">
+        <div class="left">
+          <span class="logo-pill">Сбербанк</span>
+          <div class="position">Python-разработчик</div>
+          <div class="period">ноябрь 2025 — апрель 2026 · 6 мес.</div>
+          <div style="font-size:14px; color: var(--muted); max-width: 280px;">
+            ML-сервисы, LLM-пайплайны и&nbsp;NER для&nbsp;юридических документов.
+          </div>
+        </div>
+
+        <div class="achievements">
+          <div class="ach">
+            <div class="badge">−22%</div>
+            <div class="txt">
+              Интегрировал <b>LLM-пайплайн на&nbsp;GigaChat</b> в&nbsp;продуктив; время анализа документа специалистом сократилось на&nbsp;22%.
+            </div>
+          </div>
+          <div class="ach">
+            <div class="badge">×20</div>
+            <div class="txt">
+              Заменил LLM-классификатор на&nbsp;<b>BM25-роутер (Optuna, F1 ≈ 0.95)</b>: ошибка снизилась на&nbsp;40%, скорость&nbsp;×20.
+            </div>
+          </div>
+          <div class="ach">
+            <div class="badge">NER</div>
+            <div class="txt">
+              Иерархический <b>NER</b> на&nbsp;юр.&nbsp;документах: spaCy + ONNX-классификаторы поверх токенов PyMorphy. Три уровня сущностей.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -250,29 +501,14 @@
 <section class="projects" id="projects" data-screen-label="05 Projects">
   <div class="wrap">
     <div class="eyebrow">проекты</div>
-    <h2 class="h2">четыре истории <em>про&nbsp;графы агентов</em>.</h2>
+    <h2 class="h2">избранные <em>проекты</em>.</h2>
 
     <div class="proj-layout">
-      <div class="proj-tabs" id="projTabs">
-        <button class="proj-tab active" data-idx="0">
-          <span class="idx">01</span>
-          <span class="name">Детектор галлюцинаций GigaChat</span>
-        </button>
-        <button class="proj-tab" data-idx="1">
-          <span class="idx">02</span>
-          <span class="name">Мультиагентная классификация Avito</span>
-        </button>
-        <button class="proj-tab" data-idx="2">
-          <span class="idx">03</span>
-          <span class="name">Графовая генерация BPMN-диаграмм</span>
-        </button>
-        <button class="proj-tab" data-idx="3">
-          <span class="idx">04</span>
-          <span class="name">Сегментация интервью · Газпром</span>
-        </button>
+      <div class="proj-tabs mode-block" id="projTabs">
+        <!-- rendered by JS based on mode -->
       </div>
 
-      <div class="proj-detail" id="projDetail">
+      <div class="proj-detail mode-block" id="projDetail">
         <!-- content rendered by JS -->
       </div>
     </div>
@@ -283,7 +519,7 @@
 <section class="edu" id="edu" data-screen-label="06 Education">
   <div class="wrap">
     <div class="eyebrow">образование и&nbsp;достижения</div>
-    <h2 class="h2">учусь на&nbsp;<em>AI-алгоритмиста</em>.</h2>
+    <h2 class="h2">образование <em>и достижения</em>.</h2>
 
     <div class="grid">
       <div class="edu-card uni reveal">
@@ -295,7 +531,7 @@
         <div class="ring"></div>
       </div>
 
-      <div class="achievements">
+      <div class="achievements mode-block mode-block-py">
         <div class="ach-item reveal">
           <div class="num">01</div>
           <div class="txt">
@@ -315,6 +551,27 @@
           </div>
         </div>
       </div>
+
+      <div class="achievements mode-block mode-block-cv">
+        <div class="ach-item reveal">
+          <div class="num">01</div>
+          <div class="txt">
+            Автор исследования <b>«Методология и&nbsp;валидация разметки снимков ОКТ с&nbsp;использованием U-Net3+»</b> — eLIBRARY, 2024.
+          </div>
+        </div>
+        <div class="ach-item reveal">
+          <div class="num">02</div>
+          <div class="txt">
+            <b>Топ-3</b> на&nbsp;лидерборде хакатона Газпрома (сегментация интервью, F1&nbsp;=&nbsp;0.81).
+          </div>
+        </div>
+        <div class="ach-item reveal">
+          <div class="num">03</div>
+          <div class="txt">
+            Участник <b>IT Purple Hack 2026</b> — кейсы Сбера (детектор галлюцинаций GigaChat) и&nbsp;Avito (мультиагентная классификация).
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -324,7 +581,7 @@
   <div class="wrap">
     <div class="grid">
       <h2 class="sign">
-        напи<span class="green">ши</span>те<br/>мне<span class="pink">.</span>
+        свя<span class="green">жем</span>ся<span class="pink">.</span>
       </h2>
       <div class="col">
         <div class="lbl">прямой контакт</div>
@@ -334,17 +591,26 @@
       <div class="col">
         <div class="lbl">код и&nbsp;статьи</div>
         <a href="https://github.com/be1pheg0r" target="_blank" rel="noopener">github.com/be1pheg0r</a>
-        <a href="#exp">резюме (PDF — by request)</a>
+        <a href="https://docs.google.com/document/d/1Hkcu4VGTxPP-pWNmAM_5wQBuD5kC50n-/edit?usp=sharing&ouid=101720441758992709932&rtpof=true&sd=true" target="_blank" rel="noopener" data-pdf-link>PDF-резюме ↗</a>
       </div>
     </div>
 
     <div class="bottom">
       <div>© 2026 · Станислав Тупицин</div>
-      <div>Python · NLP · LLM · агенты</div>
+      <div class="mode-block mode-block-py">Python · NLP · LLM · агенты</div>
+      <div class="mode-block mode-block-cv">Python · Computer Vision · DL · ReID</div>
     </div>
   </div>
 </footer>
 
 <script src="app.js"></script>
+
+<!-- Tweaks (React + Babel) -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks-app.jsx"></script>
+<div id="tweaks-root"></div>
 </body>
 </html>

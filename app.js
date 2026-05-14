@@ -1,3 +1,59 @@
+// ===== theme toggle (light/dark) with radial reveal =====
+const THEME_KEY = 'resume.theme';
+function applyTheme(theme) {
+  document.body.classList.toggle('theme-dark', theme === 'dark');
+  try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+}
+(function () {
+  let saved = 'light';
+  try { saved = localStorage.getItem(THEME_KEY) || 'light'; } catch (e) {}
+  applyTheme(saved);
+})();
+
+function animateThemeFlip(originX, originY, nextTheme) {
+  const overlay = document.createElement('div');
+  overlay.className = 'theme-reveal';
+  const size = 20;
+  overlay.style.width = size + 'px';
+  overlay.style.height = size + 'px';
+  overlay.style.left = (originX - size / 2) + 'px';
+  overlay.style.top  = (originY - size / 2) + 'px';
+  overlay.style.background = nextTheme === 'dark' ? '#0F0E0C' : '#FBF7EE';
+  document.body.appendChild(overlay);
+
+  const w = window.innerWidth, h = window.innerHeight;
+  const dx = Math.max(originX, w - originX);
+  const dy = Math.max(originY, h - originY);
+  const radius = Math.sqrt(dx * dx + dy * dy);
+  const scale = (radius * 2) / size + 4;
+
+  const anim = overlay.animate(
+    [
+      { transform: 'scale(0)', opacity: 1 },
+      { transform: `scale(${scale})`, opacity: 1 }
+    ],
+    { duration: 620, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards' }
+  );
+  setTimeout(() => applyTheme(nextTheme), 320);
+  anim.onfinish = () => {
+    overlay.animate(
+      [{ opacity: 1 }, { opacity: 0 }],
+      { duration: 220, easing: 'ease-out', fill: 'forwards' }
+    ).onfinish = () => overlay.remove();
+  };
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const themeBtn = document.getElementById('themeToggle');
+  if (!themeBtn) return;
+  themeBtn.addEventListener('click', () => {
+    const isDark = document.body.classList.contains('theme-dark');
+    const next = isDark ? 'light' : 'dark';
+    const r = themeBtn.getBoundingClientRect();
+    animateThemeFlip(r.left + r.width / 2, r.top + r.height / 2, next);
+  });
+});
+
 // ===== scroll progress =====
 const progress = document.getElementById('progress');
 function updateProgress() {
@@ -18,6 +74,18 @@ const io = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ===== inject [fig.] markers for CV "scientific paper" mode =====
+// Real DOM element (not CSS ::before content) — reliable across renderers
+// and easy to style/animate. CSS in styles.css hides it when not in CV mode.
+document.querySelectorAll('.eyebrow').forEach(el => {
+  if (el.querySelector(':scope > .eyebrow-fig')) return;
+  const fig = document.createElement('span');
+  fig.className = 'eyebrow-fig';
+  fig.setAttribute('aria-hidden', 'true');
+  fig.textContent = '[ fig. ]';
+  el.prepend(fig);
+});
 
 // ===== magnet shapes — soft cursor follow =====
 const magnets = document.querySelectorAll('.magnet');
@@ -41,8 +109,8 @@ function tickMagnet() {
 }
 tickMagnet();
 
-// ===== projects: tabs =====
-const PROJECTS = [
+// ===== projects: per-mode data =====
+const PROJECTS_PY = [
   {
     ctx: 'IT Purple Hack 2026 · кейс Сбера',
     title: 'Детектор галлюцинаций для GigaChat',
@@ -89,9 +157,95 @@ const PROJECTS = [
   }
 ];
 
+const PROJECTS_CV = [
+  {
+    ctx: 'pet / Kaggle · 2024',
+    title: 'Идентификация охотоморских китов по видеопотоку',
+    stack: ['Python', 'PyTorch', 'YOLO11m-seg', 'Swin-B', 'MegaDescriptor', 'ArcFace', 'Triplet Loss', 'DDP (dual T4)'],
+    bullets: [
+      'Полный пайплайн детекция → сегментация → ReID: YOLO11m-seg выделяет особей, Swin-B / MegaDescriptor с ArcFace + Triplet извлекают эмбеддинги.',
+      'Реализовал DDP-обучение на двух T4; разбирал распределение классов и устранял утечки между train/val.',
+      '66 классов, 2400+ изображений; zero-shot baseline Rank-1 = 0.56.'
+    ],
+    result: 'Rank-1 = 0.737 на закрытой валидации'
+  },
+  {
+    ctx: 'eLIBRARY, 2024 · публикация',
+    title: 'Сегментация патологий на снимках ОКТ (U-Net3+)',
+    stack: ['Python', 'PyTorch', 'U-Net3+', 'albumentations', 'OpenCV'],
+    bullets: [
+      'Сегментация патологических областей на снимках оптической когерентной томографии.',
+      'Кастомная разметка и валидация датасета; устойчивые аугментации под низкоконтрастные снимки.',
+      'Работа легла в основу публикации на eLIBRARY.'
+    ],
+    result: 'Dice = 0.83 на тестовой выборке'
+  },
+  {
+    ctx: 'pet / end-to-end',
+    title: 'Распознавание рукописного текста на бланках',
+    stack: ['Python', 'PyTorch', 'OpenCV', 'CRNN', 'PyQt5'],
+    bullets: [
+      'End-to-end фреймворк распознавания рукописного текста на бланках.',
+      'GUI-прототип на PyQt5 с выгрузкой результатов в Excel.',
+      'Препроцессинг строк через OpenCV, CRNN-модель в основе.'
+    ],
+    result: 'CER = 4.2% на тестовой выборке'
+  },
+  {
+    ctx: 'pet / биосигналы',
+    title: 'Классификация РАС по сигналам ЭКГ / EEG',
+    stack: ['Python', 'PyTorch', 'Scikit-Learn', 'SciPy', 'signal processing'],
+    bullets: [
+      'Классификация расстройств аутистического спектра по биосигналам.',
+      'Препроцессинг и извлечение признаков из ЭКГ/EEG (фильтры, спектры).',
+      'Сравнение DL и классических моделей на одной фичевой базе.'
+    ],
+    result: 'ROC-AUC = 0.79 (+11 пп над бейслайном)'
+  }
+];
+
+// ===== mode switcher =====
+const MODE_KEY = 'resume.mode';
+let currentMode = 'py';
+try { currentMode = localStorage.getItem(MODE_KEY) || 'py'; } catch (e) {}
+
+// Build/rebuild switcher buttons. Pre-existing elements get their computed
+// styles locked by the runtime, so we recreate them on every mode change.
+const SWITCHER_BUTTONS = [
+  { mode: 'py', name: 'Python-разработчик', sub: 'ИИ-агенты · NLP' },
+  { mode: 'cv', name: 'CV-разработчик',     sub: 'Computer Vision' },
+];
+function rebuildSwitcher(activeMode) {
+  const sw = document.getElementById('modeSwitcher');
+  if (!sw) return;
+  sw.innerHTML = '';
+  for (const d of SWITCHER_BUTTONS) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.setAttribute('role', 'tab');
+    btn.dataset.mode = d.mode;
+    const isActive = d.mode === activeMode;
+    btn.className = 'ms-btn' + (isActive ? ' active' : '');
+    btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    const name = document.createElement('span');
+    name.className = 'ms-name';
+    name.textContent = d.name;
+    const sub = document.createElement('span');
+    sub.className = 'ms-sub';
+    sub.textContent = d.sub;
+    btn.appendChild(name);
+    btn.appendChild(sub);
+    btn.addEventListener('click', () => setMode(d.mode));
+    sw.appendChild(btn);
+  }
+}
+
+const projTabs = document.getElementById('projTabs');
 const projDetail = document.getElementById('projDetail');
-function renderProject(i) {
-  const p = PROJECTS[i];
+let currentProjIdx = 0;
+
+function renderProject(list, i) {
+  const p = list[i];
   projDetail.innerHTML = `
     <div class="ctx">${p.ctx}</div>
     <div class="title">${p.title}</div>
@@ -103,12 +257,52 @@ function renderProject(i) {
     <div class="corner-pink"></div>
   `;
 }
-renderProject(0);
 
-document.querySelectorAll('.proj-tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.proj-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderProject(parseInt(btn.dataset.idx, 10));
+function renderTabs(list) {
+  projTabs.innerHTML = list.map((p, i) => `
+    <button class="proj-tab${i === currentProjIdx ? ' active' : ''}" data-idx="${i}">
+      <span class="idx">${String(i + 1).padStart(2, '0')}</span>
+      <span class="name">${p.title}</span>
+    </button>
+  `).join('');
+  projTabs.querySelectorAll('.proj-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentProjIdx = parseInt(btn.dataset.idx, 10);
+      projTabs.querySelectorAll('.proj-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderProject(list, currentProjIdx);
+    });
   });
-});
+}
+
+function projectsForMode(mode) { return mode === 'cv' ? PROJECTS_CV : PROJECTS_PY; }
+
+function renderProjectsForMode(mode) {
+  currentProjIdx = 0;
+  const list = projectsForMode(mode);
+  renderTabs(list);
+  renderProject(list, 0);
+}
+
+function applyMode(mode, animated) {
+  document.body.classList.toggle('mode-cv', mode === 'cv');
+  // rebuild the switcher buttons fresh so their styles reflect the new mode
+  rebuildSwitcher(mode);
+  // swap PDF links to the mode-specific google doc
+  const pdfUrl = mode === 'cv'
+    ? 'https://docs.google.com/document/d/1s2C6HoEELEKPNrnBQSbZiOWZbdox5t8iQZG_b_PQDOM/edit?usp=sharing'
+    : 'https://docs.google.com/document/d/1Hkcu4VGTxPP-pWNmAM_5wQBuD5kC50n-/edit?usp=sharing&ouid=101720441758992709932&rtpof=true&sd=true';
+  document.querySelectorAll('[data-pdf-link]').forEach(a => { a.href = pdfUrl; });
+
+  renderProjectsForMode(mode);
+  currentMode = mode;
+  try { localStorage.setItem(MODE_KEY, mode); } catch (e) {}
+}
+
+// initial apply (no anim)
+applyMode(currentMode, false);
+
+async function setMode(next) {
+  if (next === currentMode) return;
+  applyMode(next, true);
+}

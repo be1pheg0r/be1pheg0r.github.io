@@ -1,3 +1,351 @@
+/* skill-group wide spans both columns on >=900px */
+.skill-group.wide { grid-column: 1 / -1; }
+
+/* ============ mode switcher (Python ↔ CV) ============ */
+.mode-switcher {
+  margin: 0 auto 28px;
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 4px;
+  display: inline-flex;
+  position: relative;
+  gap: 4px;
+  box-shadow: 0 4px 0 rgba(14,14,14,0.10);
+  transition: background 380ms ease, border-color 380ms ease, box-shadow 380ms ease;
+  align-self: center;
+}
+.ms-btn {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  color: var(--ink);
+  border: 0;
+  padding: 8px 18px 9px;
+  border-radius: 999px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  font-family: inherit;
+  cursor: pointer;
+  min-width: 178px;
+  transition: color 320ms cubic-bezier(.65,-0.05,.25,1.05),
+              background 420ms cubic-bezier(.65,-0.05,.25,1.05);
+}
+.ms-btn:hover {
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.ms-btn .ms-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.ms-btn .ms-sub {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+/* Drive active state purely via body.mode-cv → CSS variables.
+   (Avoids per-button class toggling, which the runtime style-locks.) */
+body:not(.mode-cv) .ms-btn[data-mode="py"],
+body.mode-cv      .ms-btn[data-mode="cv"] {
+  background: var(--ink);
+  color: var(--bg);
+}
+body:not(.mode-cv) .ms-btn[data-mode="py"]:hover,
+body.mode-cv      .ms-btn[data-mode="cv"]:hover {
+  background: var(--ink);
+}
+
+/* ============ mode-blocks: parallel py/cv content ============ */
+body:not(.mode-cv) .mode-block-cv { display: none; }
+body.mode-cv .mode-block-py { display: none; }
+
+/* nudge page content down so it clears nav + switcher */
+body { padding-top: 0; }
+
+/* ============ CV mode: cooler "scientific" palette ============ */
+body.mode-cv {
+  --bg: #EFEEE6;
+  --bg-2: #E6E5DA;
+  --ink: #0F1B2D;
+  --ink-soft: #243349;
+  --muted: #6b7280;
+  --line: #0F1B2D;
+  --green: #0EA5A8;          /* teal where green was */
+  --green-deep: #0E8083;
+  --red: #B45309;            /* rust amber where red was */
+  --pink: #C7B5E8;           /* lavender where pink was */
+  --pink-hot: #8B6FD8;
+  --paper: #FFFFFF;
+}
+body.mode-cv.theme-dark {
+  --bg: #0C1320;
+  --bg-2: #131C2C;
+  --ink: #E7ECF1;
+  --ink-soft: #c8cfd7;
+  --muted: #8893a3;
+  --line: #E7ECF1;
+  --paper: #182234;
+  --green: #2DD4D9;
+  --green-deep: #14B5BA;
+  --red: #F59E0B;
+  --pink: #B8A8E5;
+  --pink-hot: #C4B0FF;
+}
+
+/* sharper, more academic corners */
+body.mode-cv .skill-group,
+body.mode-cv .mini-card,
+body.mode-cv .exp .card,
+body.mode-cv .proj-detail,
+body.mode-cv .edu-card,
+body.mode-cv .hero-meta .cell,
+body.mode-cv .about .stat,
+body.mode-cv .ach-item { border-radius: 10px; }
+body.mode-cv .skill-group .head,
+body.mode-cv .mini-card .head { border-bottom: 1px dashed color-mix(in srgb, var(--ink) 30%, transparent); padding-bottom: 10px; }
+body.mode-cv .proj-tab { border-radius: 8px; }
+
+/* eyebrow marker is the same red/green dot in both modes — the legacy
+   [fig.] span injected by app.js is hidden everywhere. */
+.eyebrow-fig { display: none !important; }
+
+/* scientific stat captions: small caps + ruler */
+body.mode-cv .about .stat .lbl {
+  border-top: 1px solid currentColor;
+  padding-top: 8px;
+  margin-top: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+body.mode-cv .about .stat .num {
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.02em;
+}
+
+/* CV-mode: less aggressive hero shapes, more grid-y feel */
+body.mode-cv .shape.asterisk { content: "+"; }
+body.mode-cv .shape.asterisk::after {
+  /* swap glyph to a plus */
+}
+body.mode-cv .shape.dots-grid { opacity: 0.55; background-size: 14px 14px; }
+body.mode-cv .shape.red-blob {
+  border-radius: 0;
+  transform: rotate(15deg);
+  animation: none;
+}
+body.mode-cv .shape.half-pink {
+  border-radius: 0;
+  height: 8px;
+  width: 260px;
+  bottom: 14%; right: 14%;
+  transform: rotate(-22deg);
+}
+
+/* CV-mode chips look more like data labels */
+body.mode-cv .chip {
+  border-radius: 4px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+}
+
+/* CV-mode: project dots use square markers */
+body.mode-cv .proj-detail .bullet .dot { border-radius: 0; }
+body.mode-cv .proj-detail .bullet:nth-child(2) .dot { border-radius: 0; transform: rotate(45deg); }
+body.mode-cv .proj-detail .bullet:nth-child(3) .dot { border-radius: 50%; transform: none; }
+
+/* dark/light text on switcher works regardless of theme via tokens */
+body.theme-dark .mode-switcher { box-shadow: 0 6px 0 rgba(0,0,0,0.3); }
+
+
+/* ============ mini-row: ЯП / Математика / Языки ============ */
+.mini-row {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1.2fr;
+  gap: 12px;
+}
+.mini-card {
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 22px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 200ms, background 200ms;
+}
+.mini-card:hover { transform: translateY(-3px); }
+.mini-card .head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+}
+.mini-card .title {
+  font-family: var(--font-display);
+  font-weight: 600; font-size: 24px; letter-spacing: -0.01em;
+}
+.mini-card .count {
+  display: none;
+}
+
+/* ЯП */
+.mini-card.pl { background: var(--ink); color: var(--bg); }
+.mini-card.pl .count { color: color-mix(in srgb, var(--bg) 60%, transparent); }
+.mini-card.pl .pl-list {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+}
+.mini-card.pl .pl-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(32px, 3.6vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+.mini-card.pl .pl-secondary {
+  font-size: clamp(26px, 2.8vw, 40px);
+  opacity: 0.92;
+}
+.mini-card.pl .pl-three {
+  color: var(--green);
+  font-size: 0.55em;
+  font-weight: 700;
+  letter-spacing: 0;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+/* Математика */
+.mini-card.math { background: var(--pink); }
+.math-list {
+  list-style: none; margin: 18px 0 0; padding: 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px;
+}
+.math-list li {
+  position: relative;
+  font-size: 15px;
+  padding-left: 18px;
+  line-height: 1.3;
+}
+.math-list li::before {
+  content: "✙";
+  position: absolute; left: 0; top: 0;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* Языки + флаги */
+.mini-card.langs { background: var(--paper); }
+.lang-list {
+  list-style: none; margin: 18px 0 0; padding: 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.lang-list li {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+  border-top: 1px dashed color-mix(in srgb, var(--ink) 25%, transparent);
+}
+.lang-list li:first-child { border-top: 0; padding-top: 4px; }
+.flag {
+  width: 32px; height: 22px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
+  display: inline-flex; align-items: stretch; justify-content: stretch;
+  background: var(--bg);
+  box-shadow: 0 1px 2px rgba(0,0,0,.08);
+}
+.flag svg {
+  width: 100%; height: 100%; display: block;
+  object-fit: cover;
+}
+.lang-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+}
+.lang-lvl {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ============ nav theme toggle ============ */
+.nav-theme {
+  width: 32px; height: 32px;
+  border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--green);
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  margin-right: 2px;
+  flex-shrink: 0;
+  transition: background 200ms;
+}
+.nav-theme svg {
+  width: 18px; height: 18px;
+  position: absolute;
+  transition: transform 420ms cubic-bezier(.6,-0.2,.2,1.4), opacity 240ms ease;
+}
+.nav-theme .i-sun {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+.nav-theme .i-moon {
+  transform: rotate(90deg) scale(0.3);
+  opacity: 0;
+}
+body.theme-dark .nav-theme { background: var(--red); }
+body.theme-dark .nav-theme .i-sun {
+  transform: rotate(-90deg) scale(0.3);
+  opacity: 0;
+}
+body.theme-dark .nav-theme .i-moon {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+/* ============ theme reveal animation ============ */
+.theme-reveal {
+  position: fixed;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform, opacity;
+  transform-origin: center;
+}
+@keyframes themeReveal {
+  0%   { transform: scale(0); opacity: 1; }
+  100% { transform: scale(120); opacity: 1; }
+}
+
+/* smooth color flips across the whole document */
+html, body, .skill-group, .mini-card, .exp .card, .proj-detail, .proj-tab,
+.edu-card, .ach-item, .hero-meta .cell, .about .stat, .footer .col a,
+.chip, .strip, .role, .h2, .lead, .nav, .progress {
+  transition: background-color 380ms ease, color 380ms ease, border-color 380ms ease;
+}
+
 /* ============ tokens ============ */
 :root {
   --bg: #FBF7EE;
@@ -12,7 +360,105 @@
   --pink: #FF8FB1;
   --pink-hot: #FF4D9D;
   --paper: #FFFFFF;
+  --font-display: "Unbounded", system-ui, sans-serif;
 }
+
+/* ============ dark theme ============ */
+body.theme-dark {
+  --bg: #0F0E0C;
+  --bg-2: #181613;
+  --ink: #FBF7EE;
+  --ink-soft: #ddd;
+  --muted: #8b857c;
+  --line: #FBF7EE;
+  --paper: #1A1815;
+}
+/* projects section inverts in light mode (dark bg). In dark mode flip it
+   the OTHER way so it stays distinct from the page background. */
+body.theme-dark .projects { background: var(--bg-2); color: var(--ink); }
+body.theme-dark .projects .h2,
+body.theme-dark .projects .eyebrow { color: var(--ink); }
+body.theme-dark .proj-tab { color: var(--ink); border-color: #3a352e; }
+body.theme-dark .proj-tab:hover { background: #25221d; }
+body.theme-dark .proj-tab.active { background: var(--ink); color: var(--bg-2); border-color: var(--ink); }
+body.theme-dark .proj-detail { background: var(--paper); color: var(--ink); }
+body.theme-dark .proj-detail .stack .chip { border-color: var(--ink); }
+body.theme-dark .proj-detail .result { background: var(--bg); color: var(--ink); }
+/* invert stat that uses ink-on-bg as a "dark plate" — in dark mode keep it as paper plate */
+body.theme-dark .about .stat:nth-child(1) {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+}
+/* the green "uni" edu card already uses --green which is fine in both themes */
+body.theme-dark .edu-card.uni { color: var(--ink); }
+body.theme-dark .edu-card.uni .ring { border-color: var(--ink); }
+/* nav text is var(--bg) on var(--ink) bg — naturally inverts; fine */
+/* dotted footer bottom border */
+body.theme-dark .footer .bottom { border-top-color: var(--ink); opacity: 0.85; }
+/* nice hairlines */
+body.theme-dark .section + .section { border-color: #ffffff14; }
+
+/* ============ energy levels ============ */
+/* extra shapes — only visible at energy=max */
+.shape.extra { display: none; }
+
+.shape.ring-thin {
+  width: 220px; height: 220px;
+  border: 8px solid var(--ink);
+  border-radius: 999px;
+  bottom: 22%; left: 32%;
+  opacity: 0.85;
+}
+.shape.zigzag {
+  width: 180px;
+  bottom: 32%; right: 38%;
+  transform: rotate(-8deg);
+  opacity: 0.9;
+}
+.shape.zigzag svg { width: 100%; height: auto; display: block; }
+.shape.plus {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 90px;
+  color: var(--green);
+  bottom: 6%; right: 12%;
+  line-height: 1;
+  -webkit-text-stroke: 2px var(--ink);
+}
+.shape.triangle-pink {
+  width: 0; height: 0;
+  border-left: 55px solid transparent;
+  border-right: 55px solid transparent;
+  border-bottom: 95px solid var(--pink);
+  top: 22%; left: 12%;
+  transform: rotate(18deg);
+  filter: drop-shadow(3px 3px 0 var(--ink));
+}
+
+/* energy=max: show extras + bump rotation */
+body.energy-max .shape.extra { display: block; }
+body.energy-max .shape.asterisk { animation-duration: 7s; }
+body.energy-max .shape.red-blob { animation-duration: 4s; }
+
+/* energy=min: hide decorative noise, freeze animations */
+body.energy-min .shape.asterisk,
+body.energy-min .shape.half-pink,
+body.energy-min .shape.dots-grid,
+body.energy-min .shape.arrow-down,
+body.energy-min .shape.red-blob,
+body.energy-min .floating-arc,
+body.energy-min .edu-card.uni .ring,
+body.energy-min .proj-detail .corner-pink,
+body.energy-min .shape.extra { display: none; }
+body.energy-min .shape.circle-green {
+  width: 160px; height: 160px;
+  opacity: 0.5;
+}
+body.energy-min .hero .name .pulse,
+body.energy-min .shape.asterisk,
+body.energy-min .shape.red-blob { animation: none !important; }
+body.energy-min .hero .role .pulse { animation: none; }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -79,7 +525,7 @@ section { position: relative; padding: 96px 0; }
   content: ""; width: 10px; height: 10px; background: var(--red); border-radius: 999px;
 }
 .h2 {
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(40px, 6vw, 80px);
   line-height: 0.95;
@@ -107,7 +553,7 @@ section { position: relative; padding: 96px 0; }
 }
 .hero .eyebrow { justify-content: center; }
 .hero .name {
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-weight: 800;
   font-size: clamp(64px, 13vw, 200px);
   line-height: 0.86;
@@ -164,9 +610,17 @@ section { position: relative; padding: 96px 0; }
   border-radius: 18px;
   padding: 18px 18px 20px;
   position: relative;
-  transition: transform 200ms;
+  transition: transform 200ms, background 200ms, color 200ms;
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
-.hero-meta .cell:hover { transform: translateY(-4px); }
+.hero-meta a.cell { cursor: pointer; }
+.hero-meta a.cell:hover {
+  transform: translateY(-4px);
+  background: var(--green);
+}
+.hero-meta a.cell:hover .lbl { color: var(--ink); }
 .hero-meta .cell .lbl {
   font-family: "JetBrains Mono", monospace;
   font-size: 11px;
@@ -175,7 +629,7 @@ section { position: relative; padding: 96px 0; }
   color: var(--muted);
 }
 .hero-meta .cell .val {
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-weight: 600;
   font-size: 18px;
   margin-top: 6px;
@@ -219,7 +673,7 @@ section { position: relative; padding: 96px 0; }
   opacity: 0.85;
 }
 .shape.asterisk {
-  font-family: "Unbounded";
+  font-family: var(--font-display);
   font-weight: 800;
   font-size: 140px;
   color: var(--red);
@@ -246,7 +700,7 @@ section { position: relative; padding: 96px 0; }
   align-items: start;
 }
 .about p.lead {
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(24px, 2.6vw, 36px);
   line-height: 1.18;
@@ -273,7 +727,7 @@ section { position: relative; padding: 96px 0; }
 .about .stat:nth-child(2) { background: var(--green); color: var(--ink); }
 .about .stat:nth-child(3) { background: var(--pink); color: var(--ink); }
 .about .stat .num {
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 56px;
   line-height: 1;
@@ -313,17 +767,15 @@ section { position: relative; padding: 96px 0; }
   justify-content: space-between;
 }
 .skill-group .title {
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-weight: 600;
   font-size: 24px;
   letter-spacing: -0.01em;
 }
 .skill-group .count {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 12px;
-  color: var(--muted);
+  display: none;
 }
-.skill-group:hover .count { color: inherit; opacity: 0.8; }
+.skill-group:hover .count { display: none; }
 .skill-group .chips {
   margin-top: 16px;
   display: flex;
@@ -376,7 +828,7 @@ section { position: relative; padding: 96px 0; }
   border-radius: 999px;
 }
 .exp .position {
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 36px;
   line-height: 1.05;
@@ -402,7 +854,7 @@ section { position: relative; padding: 96px 0; }
   border-radius: 12px;
   padding: 10px 0;
   text-align: center;
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 18px;
   line-height: 1;
@@ -458,7 +910,7 @@ section { position: relative; padding: 96px 0; }
   opacity: 0.7;
 }
 .proj-tab .name {
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-weight: 600;
   font-size: 16px;
   line-height: 1.15;
@@ -482,7 +934,7 @@ section { position: relative; padding: 96px 0; }
   color: var(--red);
 }
 .proj-detail .title {
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 36px;
   line-height: 1.04;
@@ -564,7 +1016,7 @@ section { position: relative; padding: 96px 0; }
 }
 .edu-card .name {
   margin-top: 12px;
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 28px;
   line-height: 1.05;
@@ -599,7 +1051,7 @@ section { position: relative; padding: 96px 0; }
   align-items: start;
 }
 .ach-item .num {
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 24px;
   color: var(--red);
@@ -625,7 +1077,7 @@ section { position: relative; padding: 96px 0; }
   gap: 36px;
 }
 .chat .intro p {
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-size: 22px;
   line-height: 1.2;
   letter-spacing: -0.01em;
@@ -715,7 +1167,7 @@ section { position: relative; padding: 96px 0; }
   align-items: end;
 }
 .footer .sign {
-  font-family: "Unbounded", system-ui;
+  font-family: var(--font-display);
   font-weight: 800;
   font-size: clamp(48px, 8vw, 120px);
   line-height: 0.9;
@@ -806,7 +1258,18 @@ section { position: relative; padding: 96px 0; }
   .about .stat { padding: 20px 22px; border-radius: 18px; }
   .about .stat .num { font-size: 44px; }
 
-  .skills .groups { grid-template-columns: 1fr; gap: 10px; }
+  /* mini-row collapses */
+  .mini-row { grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+  .mini-card.pl .pl-name { font-size: 56px; }
+  .math-list { grid-template-columns: 1fr 1fr; }
+
+  .nav { display: flex; }
+  .nav-theme { width: 30px; height: 30px; }
+  .nav-theme svg { width: 16px; height: 16px; }
+  .nav a:not(.dot):not(.nav-theme) { padding: 6px 10px; font-size: 12px; }
+  .nav { padding: 4px; gap: 2px; flex-wrap: wrap; max-width: calc(100vw - 28px); justify-content: center; }
+
+  .skill-group.wide { grid-column: auto; }
   .skill-group { padding: 18px 20px; border-radius: 18px; }
   .skill-group .title { font-size: 20px; }
 
