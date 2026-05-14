@@ -1266,11 +1266,21 @@ section { position: relative; padding: 96px 0; }
   .mini-card.pl .pl-name { font-size: 56px; }
   .math-list { grid-template-columns: 1fr 1fr; }
 
-  .nav { display: flex; }
-  .nav-theme { width: 30px; height: 30px; }
+  .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 4px;
+    gap: 2px;
+    max-width: calc(100vw - 24px);
+    width: max-content;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  .nav-theme { width: 30px; height: 30px; flex: 0 0 30px; }
   .nav-theme svg { width: 16px; height: 16px; }
-  .nav a:not(.dot):not(.nav-theme) { padding: 6px 10px; font-size: 12px; }
-  .nav { padding: 4px; gap: 2px; flex-wrap: wrap; max-width: calc(100vw - 28px); justify-content: center; }
+  .nav a:not(.dot):not(.nav-theme) { padding: 6px 10px; font-size: 12px; white-space: nowrap; }
+  .nav a.dot { padding: 8px 14px; font-size: 12px; white-space: nowrap; }
 
   .skill-group.wide { grid-column: auto; }
   .skill-group { padding: 18px 20px; border-radius: 18px; }
@@ -1320,6 +1330,18 @@ section { position: relative; padding: 96px 0; }
 }
 
 /* phone */
+@media (max-width: 640px) {
+  /* collapse nav to essentials so it stops overflowing */
+  .nav a[href^="#about"],
+  .nav a[href^="#skills"],
+  .nav a[href^="#exp"],
+  .nav a[href^="#projects"],
+  .nav a[href^="#edu"] { display: none; }
+  .nav { gap: 4px; padding: 4px; }
+  .nav a:not(.dot):not(.nav-theme) { padding: 6px 12px; font-size: 12px; }
+  .nav a.dot { padding: 8px 14px; }
+}
+
 @media (max-width: 520px) {
   .wrap { padding: 0 16px; }
   .eyebrow { font-size: 11px; }
