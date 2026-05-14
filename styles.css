@@ -63,8 +63,11 @@ body.mode-cv      .ms-btn[data-mode="cv"]:hover {
 }
 
 /* ============ mode-blocks: parallel py/cv content ============ */
-body:not(.mode-cv) .mode-block-cv { display: none; }
-body.mode-cv .mode-block-py { display: none; }
+body:not(.mode-cv) .mode-block-cv { display: none !important; }
+body.mode-cv .mode-block-py { display: none !important; }
+
+/* CV-experience stack: flex column when visible */
+body.mode-cv .exp-cv-stack { display: flex; flex-direction: column; gap: 18px; }
 
 /* nudge page content down so it clears nav + switcher */
 body { padding-top: 0; }

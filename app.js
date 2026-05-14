@@ -206,8 +206,20 @@ const PROJECTS_CV = [
 
 // ===== mode switcher =====
 const MODE_KEY = 'resume.mode';
+const HASH_TO_MODE = { '#nlp': 'py', '#cv': 'cv' };
+const MODE_TO_HASH = { py: '#nlp', cv: '#cv' };
+
+function modeFromHash() {
+  return HASH_TO_MODE[(location.hash || '').toLowerCase()] || null;
+}
+
 let currentMode = 'py';
-try { currentMode = localStorage.getItem(MODE_KEY) || 'py'; } catch (e) {}
+const hashMode = modeFromHash();
+if (hashMode) {
+  currentMode = hashMode;
+} else {
+  try { currentMode = localStorage.getItem(MODE_KEY) || 'py'; } catch (e) {}
+}
 
 // Build/rebuild switcher buttons. Pre-existing elements get their computed
 // styles locked by the runtime, so we recreate them on every mode change.
@@ -297,10 +309,31 @@ function applyMode(mode, animated) {
   renderProjectsForMode(mode);
   currentMode = mode;
   try { localStorage.setItem(MODE_KEY, mode); } catch (e) {}
+
+  // reflect current vacancy in URL hash (#nlp / #cv) without scrolling.
+  // skip the rewrite if the user is currently on a section anchor — let them
+  // keep their place; localStorage still remembers the mode.
+  const cur = (location.hash || '').toLowerCase();
+  const desired = MODE_TO_HASH[mode];
+  const isModeHash = cur === '' || cur in HASH_TO_MODE;
+  if (animated && isModeHash && cur !== desired) {
+    history.replaceState(null, '', desired);
+  }
 }
 
 // initial apply (no anim)
 applyMode(currentMode, false);
+
+// if URL has no mode hash yet, stamp it so links are shareable
+if (!modeFromHash() && !location.hash) {
+  history.replaceState(null, '', MODE_TO_HASH[currentMode]);
+}
+
+// react to manual hash edits (e.g. someone pastes #cv into the URL)
+window.addEventListener('hashchange', () => {
+  const m = modeFromHash();
+  if (m && m !== currentMode) applyMode(m, false);
+});
 
 async function setMode(next) {
   if (next === currentMode) return;
